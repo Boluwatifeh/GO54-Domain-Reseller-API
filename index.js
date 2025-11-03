@@ -1,0 +1,81 @@
+import axios from "axios";
+import crypto from "crypto";
+import qs from "qs"; 
+
+/**
+ * Generate API token 
+ * @param {string} username - your GO54 registered email
+ * @param {string} apiSecret - your  domain reseller API key
+ * @returns {string} base64 encoded token
+ */
+function generateToken(username, apiSecret) {
+  const date = new Date();
+  const gmtDate = new Date(date.toISOString());
+  const formattedDate = gmtDate.toISOString().slice(2, 13).replace("T", " "); 
+
+    const key = `${username}:${formattedDate}`;
+    const message = apiSecret;
+    
+    const hmacHex = crypto.createHmac("sha256", key).update(message).digest("hex");
+    const token = Buffer.from(hmacHex).toString("base64");
+
+  return token;
+}
+
+/**
+ * Register a new domain
+ * @param {object} config - API credentials and endpoint
+ * @param {object} data - Domain registration details
+ */
+export async function registerDomain(config, data) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
+
+  try {
+    const response = await axios.post(
+      `${endpoint}/order/domains/register`,
+      qs.stringify(data), 
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          username,
+          token,
+        },
+      }
+    );
+
+    console.log("Domain Registered Successfully");
+    return response.data;
+
+  } catch (error) {
+    console.error("Error registering domain:");
+    console.error(error.response ? error.response.data : error.message);
+    // throw error;
+  }
+}
+
+export async function transferDomain(config, data) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
+
+  try {
+    const response = await axios.post(
+      `${endpoint}/order/domains/transfer`,
+      qs.stringify(data), 
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          username,
+          token,
+        },
+      }
+    );
+    console.log("Domain Transfer Initiated Successfully");
+    return response.data; 
+  } catch (error) {
+    console.error("Error initiating domain transfer:");
+    console.error(error.response ? error.response.data : error.message);
+    // throw error;
+  };
+}
+
