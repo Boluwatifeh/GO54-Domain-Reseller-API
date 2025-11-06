@@ -79,3 +79,51 @@ export async function transferDomain(config, data) {
   };
 }
 
+export async function renewDomain(config, data) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret); 
+
+  try {
+    const response = await axios.post(
+      `${endpoint}/order/domains/renew`,
+      qs.stringify(data), 
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          username,
+          token,
+        },
+      }
+    );
+    console.log("Domain Renewed Successfully");
+    return response.data; 
+  } catch (error) {
+    console.error("Error renewing domain:");
+    console.error(error.response ? error.response.data : error.message);
+    // throw error;
+  }
+}
+
+export async function getEppCode(config, data, domain) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
+  try {
+    const response = await axios.get(
+      `${endpoint}/domains/${domain}/eppcode`,
+      {
+        params : data,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          username: username,
+          token: token,
+        },
+      }
+    );
+    console.log("EPP Code Retrieved Successfully");
+    return response.data; 
+  } catch (error) {
+    console.error("Error retrieving EPP code:");
+    console.error(error.response ? error.response.data : error.message);
+    // throw error;
+  }
+}
