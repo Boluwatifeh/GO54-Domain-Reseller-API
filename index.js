@@ -223,3 +223,27 @@ export async function getRegistrarLockStatus(config, data, domain) {
     // throw error;
   }
 }
+
+export async function getDomainNameservers(config, data, domain) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
+  try {
+    const response = await axios.get(
+      `${endpoint}/domains/${domain}/nameservers`,
+      {
+        params : data,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          username: username,
+          token: token,
+        },
+      }
+    );
+    console.log("Domain Nameservers Retrieved Successfully");
+    return response.data; 
+  } catch (error) {
+    console.error("Error retrieving domain nameservers:");
+    console.error(error.response ? error.response.data : error.message);
+    // throw error;
+  } 
+}
