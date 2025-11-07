@@ -9,7 +9,7 @@ const config = {
 };
 
 const params = {
-  domain: "tife.com.ng",
+  domain: "example.com",
 };
 (async () => {
   try {
