@@ -1,6 +1,6 @@
 import { transferDomain } from "./index.js";  
 import dotenv from "dotenv";
-dotenv.config();    
+dotenv.config();
 
 const config = {
   endpoint: process.env.BASE_URL,
@@ -80,7 +80,8 @@ const transferParams = {
 (async () => {
   try {
     const result = await transferDomain(config, transferParams);
-    console.log('Transfer initiated successfully:', result);
+    // console.log('Transfer initiated successfully:', result);
+    console.log(result);
   } catch (error) {
     console.error('Error:', error.message);
   }

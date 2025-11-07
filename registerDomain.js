@@ -12,8 +12,8 @@ const whoisData = {
   domain: "example.com",
   regperiod: 1,
   nameservers: {
-    ns1: "nsa.webhosting.com",
-    ns2: "nsb.webhosting.com",
+    ns1: "nsa.whogohost.com",
+    ns2: "nsb.whogohost.com",
   },
   contacts: {
     registrant: {
