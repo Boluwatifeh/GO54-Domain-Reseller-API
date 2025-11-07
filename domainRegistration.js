@@ -27,8 +27,8 @@ params.append("domain", "example.com");
 params.append("regperiod", "1"); 
 
 // Nameservers
-params.append("nameservers[ns1]", "nsa.webhosting.com");
-params.append("nameservers[ns2]", "nsb.webhosting.com");
+params.append("nameservers[ns1]", "nsa.whogohost.com");
+params.append("nameservers[ns2]", "nsb.whogohost.com");
 
 // Contacts
 const contactTypes = ["registrant", "admin", "tech", "billing"];

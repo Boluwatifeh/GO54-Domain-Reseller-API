@@ -8,9 +8,9 @@ const config = {
   apiSecret: process.env.API_SECRET,
 };
 
-const domain = "tife.com.ng";
+const domain = "example.com";
 const eppParams = {
-    domain: "tife.com.ng",
+    domain: "example.com",
 };
 (async () => {
   try {

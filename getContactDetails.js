@@ -7,9 +7,9 @@ const config = {
   username: process.env.EMAIL,
   apiSecret: process.env.API_SECRET,
 };
-const domain = "tife.com.ng";
+const domain = "example.com";
 const params = {
-    domain: "tife.com.ng",
+    domain: "example.com",
 };
 (async () => { 
     try { 
