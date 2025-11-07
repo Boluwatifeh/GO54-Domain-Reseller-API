@@ -151,3 +151,27 @@ export async function getContactDetails(config, data, domain) {
     // throw error;
   } 
 }
+
+export async function transferSyncDomain(config, data, domain) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
+  try {
+    const response = await axios.post(
+      `${endpoint}/domains/${domain}/transfersync`,
+      qs.stringify(data), 
+      {
+        headers: { 
+          "Content-Type": "application/x-www-form-urlencoded",
+          username,
+          token,
+        },
+      }
+    );
+    console.log("Domain Transfer Synchronized Successfully");
+    return response.data; 
+  } catch (error) {
+    console.error("Error synchronizing domain transfer:");
+    console.error(error.response ? error.response.data : error.message);
+    // throw error;
+  } 
+}
