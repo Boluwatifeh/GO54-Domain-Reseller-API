@@ -175,3 +175,27 @@ export async function transferSyncDomain(config, data, domain) {
     // throw error;
   } 
 }
+
+export async function syncDomainDetails(config, data, domain) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
+  try {
+    const response = await axios.post(
+      `${endpoint}/domains/${domain}/sync`,
+      qs.stringify(data),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          username,
+          token,
+        },
+      }
+    );
+    console.log("Domain Details Synchronized Successfully");
+    return response.data; 
+  } catch (error) {
+    console.error("Error synchronizing domain details:");
+    console.error(error.response ? error.response.data : error.message);
+    // throw error;
+  }
+}
