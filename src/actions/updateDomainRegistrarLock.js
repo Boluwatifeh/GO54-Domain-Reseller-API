@@ -1,4 +1,4 @@
-import { toggleRegistrarLock } from "./index.js";
+import { toggleRegistrarLock } from "../../index.js";
 import dotenv from "dotenv";
 dotenv.config();
 const config = {

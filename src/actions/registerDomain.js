@@ -1,15 +1,21 @@
-import { updateDomainContacts } from "./index.js";
+import { registerDomain } from "../../index.js";
 import dotenv from "dotenv";
 dotenv.config();
+
 const config = {
   endpoint: process.env.BASE_URL,
   username: process.env.EMAIL,
   apiSecret: process.env.API_SECRET,
 };
-// const domain = "example.com";
-const params = { 
-    domain: "example.com",
-    contacts: {
+
+const whoisData = {
+  domain: "example.com",
+  regperiod: 1,
+  nameservers: {
+    ns1: "nsa.whogohost.com",
+    ns2: "nsb.whogohost.com",
+  },
+  contacts: {
     registrant: {
       firstname: "example",
       lastname: "testing",
@@ -62,17 +68,10 @@ const params = {
       country: "NG",
       phonenumber: "+234.87546898",
     },
-  }
+  },
 };
 
 (async () => {
-  try {
-    const result =  await updateDomainContacts(config, params, params.domain);
-    console.log("Update Domain Contacts Result:", result);
-    } catch (error) {
-    console.error("Error updating domain contacts:", error);
-  }
+  const result = await registerDomain(config, whoisData);
+  console.log(result);
 })();
- 
-
-

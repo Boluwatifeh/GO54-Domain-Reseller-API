@@ -1,4 +1,4 @@
-import { transferDomain } from "./index.js";  
+import { transferDomain } from "../../index.js";  
 import dotenv from "dotenv";
 dotenv.config();
 

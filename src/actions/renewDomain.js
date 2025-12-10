@@ -1,4 +1,4 @@
-import { renewDomain } from "./index.js";
+import { renewDomain } from "../../index.js";
 import dotenv from "dotenv";
 dotenv.config();
 

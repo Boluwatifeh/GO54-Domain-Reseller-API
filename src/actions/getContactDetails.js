@@ -1,4 +1,4 @@
-import { getContactDetails } from "./index.js";
+import { getContactDetails } from "../../../package-test/index-old.js";
 import dotenv from "dotenv";
 dotenv.config();
 

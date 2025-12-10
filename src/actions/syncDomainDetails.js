@@ -1,4 +1,4 @@
-import { syncDomainDetails } from "./index.js";
+import { syncDomainDetails } from "../../index.js";
 import dotenv from "dotenv";
 dotenv.config();
 

@@ -1,4 +1,4 @@
-import { updateDomainNameservers } from "./index.js";
+import { updateDomainNameservers } from "../../index.js";
 import dotenv from "dotenv";
 dotenv.config();
 const config = {
