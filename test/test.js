@@ -8,7 +8,8 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
-import { getEppCode } from "../src/actions/getEppCode.js";
+// import { getEppCode } from "../src/actions/getEppCode.js";
+import { getContactDetails } from "../src/actions/getContactDetails.js";
 
 const config = {
   endpoint: process.env.BASE_URL,  
@@ -18,6 +19,6 @@ const config = {
 
 const params = { domain: "example.com" };
 
-const response = await getEppCode(config, params.domain);
+const response = await getContactDetails(config, params.domain);
 console.log(response);
 
