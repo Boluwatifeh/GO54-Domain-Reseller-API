@@ -18,6 +18,6 @@ const config = {
 
 const params = { domain: "example.com" };
 
-const response = await getEppCode(config, params, params.domain);
+const response = await getEppCode(config, params.domain);
 console.log(response);
 
