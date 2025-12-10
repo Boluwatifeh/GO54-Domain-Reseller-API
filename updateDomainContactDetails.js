@@ -6,7 +6,7 @@ const config = {
   username: process.env.EMAIL,
   apiSecret: process.env.API_SECRET,
 };
-const domain = "example.com";
+// const domain = "example.com";
 const params = { 
     domain: "example.com",
     contacts: {
@@ -67,7 +67,7 @@ const params = {
 
 (async () => {
   try {
-    const result =  await updateDomainContacts(config, params, domain);
+    const result =  await updateDomainContacts(config, params, params.domain);
     console.log("Update Domain Contacts Result:", result);
     } catch (error) {
     console.error("Error updating domain contacts:", error);
