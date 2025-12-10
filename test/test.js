@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
-import { getDomainNameservers } from "../src/actions/getDomainNameservers.js";
+import { getEppCode } from "../src/actions/getEppCode.js";
 
 const config = {
   endpoint: process.env.BASE_URL,  
@@ -18,6 +18,6 @@ const config = {
 
 const params = { domain: "example.com" };
 
-const response = await getDomainNameservers(config, params, params.domain);
+const response = await getEppCode(config, params, params.domain);
 console.log(response);
 
