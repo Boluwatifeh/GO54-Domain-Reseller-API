@@ -1,21 +1,22 @@
-import { getContactDetails } from "../../../package-test/index-old.js";
-import dotenv from "dotenv";
-dotenv.config();
+import { createAxiosClient } from "../config/axiosClient.js";
+import { generateToken } from "../utils/generateToken.js";
+import { formatError } from "../errors/handleError.js";
 
-const config = {
-  endpoint: process.env.BASE_URL,
-  username: process.env.EMAIL,
-  apiSecret: process.env.API_SECRET,
-};
-const domain = "example.com";
-const params = {
-    domain: "example.com",
-};
-(async () => { 
-    try { 
-        const result = await getContactDetails( config, params, domain);
-        console.log("Contact Details Result:", result);
-    } catch (error) {
-        console.error("Error retrieving contact details:", error);
-    }
-})();
+
+export async function getContactDetails(config, domain) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
+    const client = createAxiosClient(endpoint);
+    try {
+    const response = await client.get(`/domains/${domain}/contact`, {
+        headers: { 
+            username,
+            token,
+        },
+    });
+
+    return response.data;
+  } catch (error) {
+    return formatError(error, "getContactDetails");
+  }
+}

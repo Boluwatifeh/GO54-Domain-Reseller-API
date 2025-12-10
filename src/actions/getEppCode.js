@@ -1,22 +1,23 @@
-import { getEppCode } from "./index.js ";
-import dotenv from "dotenv";
-dotenv.config();
+import { createAxiosClient } from "../config/axiosClient.js";
+import { generateToken } from "../utils/generateToken.js";
+import { formatError } from "../errors/handleError.js";
 
-const config = {
-  endpoint: process.env.BASE_URL,
-  username: process.env.EMAIL,
-  apiSecret: process.env.API_SECRET,
-};
+export async function getEppCode(config,  domain){
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
 
-const domain = "example.com";
-const eppParams = {
-    domain: "example.com",
-};
-(async () => {
-  try {
-    const result =  await getEppCode(config, eppParams, domain);
-    console.log("EPP Code Result:", result);
-    } catch (error) {
-    console.error("Error retrieving EPP code:", error);
+  const client = createAxiosClient(endpoint); 
+    try {
+    const response = await client.get(`/domains/${domain}/eppcode`, {
+      headers: {
+        username,
+        token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return formatError(error, "getEppCode");
   }
-})();
+}
+
