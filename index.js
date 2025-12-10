@@ -272,3 +272,27 @@ export async function updateDomainContacts(config, data, domain) {
     // throw error;
   }
 }
+
+export async function updateDomainNameservers(config, data, domain) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret); 
+  try {
+    const response = await axios.post(
+      `${endpoint}/domains/${domain}/nameservers`,
+      qs.stringify(data),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          username, 
+          token,
+        },
+      }
+    );
+    console.log("Domain Nameservers Updated Successfully");
+    return response.data; 
+  } catch (error) {
+    console.error("Error updating domain nameservers:");
+    console.error(error.response ? error.response.data : error.message);
+    // throw error;
+  } 
+}
