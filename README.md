@@ -41,11 +41,13 @@ import {
   renewDomain,
   getDomainNameservers,
   getEppCode,
+  getRegistrarLock,
   getContactDetails,
   updateDomainContactDetails,
   updateDomainNameservers,
   updateDomainRegistrarLock,
   syncDomainDetails,
+  transferSyncDomain,
 } from "go54-domain-reseller-sdk";
 
 const config = {
@@ -53,3 +55,4 @@ const config = {
   username: process.env.EMAIL,
   apiSecret: process.env.API_SECRET,
 };
+
