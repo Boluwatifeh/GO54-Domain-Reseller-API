@@ -1,22 +1,23 @@
-import { transferSyncDomain }  from "../../index.js";
-import dotenv from "dotenv";
-dotenv.config();
+import { createAxiosClient } from "../config/axiosClient.js";
+import { generateToken } from "../utils/generateToken.js";
+import { formatError } from "../errors/handleError.js";
+import qs from "qs";
 
-const config = {
-  endpoint: process.env.BASE_URL,
-  username: process.env.EMAIL,
-  apiSecret: process.env.API_SECRET,
-};
+export async function transferSyncDomain(config, data, domain) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
+    const client = createAxiosClient(endpoint);
+    try {
+    const response = await client.post(`/domains/${domain}/transfersync`,
+       qs.stringify(data), {
+        headers: {
+            username,
+            token,
+        },
+    }); 
 
-const params = {
-  domain: "example.com"
-};
-
-(async () => {
-  try {
-    const result = await transferSyncDomain(config, params, params.domain);
-    // console.log("Transfer Sync Domain Result:", result);
+    return response.data;
   } catch (error) {
-    console.error("Error synchronizing domain transfer:", error);
+    return formatError(error, "transferSyncDomain");
   } 
-})(); 
+}
