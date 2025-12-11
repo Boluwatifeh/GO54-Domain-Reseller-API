@@ -1,21 +1,22 @@
-import { syncDomainDetails } from "../../index.js";
-import dotenv from "dotenv";
-dotenv.config();
+import { createAxiosClient } from "../config/axiosClient.js";
+import { generateToken } from "../utils/generateToken.js";
+import { formatError } from "../errors/handleError.js";
+import qs from "qs";
 
-const config = {
-  endpoint: process.env.BASE_URL,
-  username: process.env.EMAIL,
-  apiSecret: process.env.API_SECRET,
-};
-
-const params = {
-  domain: "example.com",
-};
-(async () => {
+export async function syncDomainDetails(config, data, domain) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
+  const client = createAxiosClient(endpoint);
   try {
-    const result =  await syncDomainDetails(config, params, params.domain);
-    console.log("Sync Domain Details Result:", result);
-    } catch (error) {
-    console.error("Error synchronizing domain details:", error);
+    const response = await client.post(`/domains/${domain}/sync`, 
+      qs.stringify(data), {
+        headers: {
+            username,
+            token, 
+        },
+    }); 
+    return response.data;
+  } catch (error) {
+    return formatError(error, "syncDomainDetails");
   }
-})();
+}
