@@ -55,4 +55,3 @@ const config = {
   username: process.env.EMAIL,
   apiSecret: process.env.API_SECRET,
 };
-

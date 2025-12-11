@@ -3,7 +3,7 @@ import { generateToken } from "../utils/generateToken.js";
 import { formatError } from "../errors/handleError.js";
 import qs from "qs";
 
-export async function updateDomainContacts(config, data, domain) {
+export async function updateDomainContactDetails(config, data, domain) {
   const { endpoint, username, apiSecret } = config;
   const token = generateToken(username, apiSecret);
     const client = createAxiosClient(endpoint); 
@@ -17,7 +17,7 @@ export async function updateDomainContacts(config, data, domain) {
     });
     return response.data;
   } catch (error) {
-    return formatError(error, "updateDomainContacts");
+    return formatError(error, "updateDomainContactDetails");
   }
 }
  
