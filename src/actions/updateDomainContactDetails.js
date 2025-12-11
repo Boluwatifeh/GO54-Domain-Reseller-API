@@ -1,78 +1,25 @@
-import { updateDomainContacts } from "../../index.js";
-import dotenv from "dotenv";
-dotenv.config();
-const config = {
-  endpoint: process.env.BASE_URL,
-  username: process.env.EMAIL,
-  apiSecret: process.env.API_SECRET,
-};
-// const domain = "example.com";
-const params = { 
-    domain: "example.com",
-    contacts: {
-    registrant: {
-      firstname: "example",
-      lastname: "testing",
-      fullname: "example testing",
-      companyname: "textmachine",
-      email: "exam@gmail.com",
-      address1: "4 office",
-      city: "Lag",
-      state: "Lagos",
-      zipcode: "110001",
-      country: "NG",
-      phonenumber: "+234.812345678",
-    },
-    admin: {
-      firstname: "example",
-      lastname: "testing",
-      fullname: "example testing",
-      companyname: "textmachine",
-      email: "exam@gmail.com",
-      address1: "4 office",
-      city: "Lag",
-      state: "Lagos",
-      zipcode: "110001",
-      country: "NG",
-      phonenumber: "+234.812345678",
-    },
-    billing: {
-      firstname: "example",
-      lastname: "testing",
-      fullname: "example testing",
-      companyname: "textmachine",
-      email: "exam@gmail.com",
-      address1: "4 office",
-      city: "Lag",
-      state: "Lagos",
-      zipcode: "110001",
-      country: "NG",
-      phonenumber: "+234.812345678",
-    },
-    tech: {
-      firstname: "example",
-      lastname: "testing",
-      fullname: "example testing",
-      companyname: "textmachine",
-      email: "exam@gmail.com",
-      address1: "4 office",
-      city: "Lag",
-      state: "Lagos",
-      zipcode: "110001",
-      country: "NG",
-      phonenumber: "+234.87546898",
-    },
-  }
-};
+import { createAxiosClient } from "../config/axiosClient.js";
+import { generateToken } from "../utils/generateToken.js";
+import { formatError } from "../errors/handleError.js";
+import qs from "qs";
 
-(async () => {
-  try {
-    const result =  await updateDomainContacts(config, params, params.domain);
-    console.log("Update Domain Contacts Result:", result);
-    } catch (error) {
-    console.error("Error updating domain contacts:", error);
+export async function updateDomainContacts(config, data, domain) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
+    const client = createAxiosClient(endpoint); 
+    try {
+    const response = await client.post(`/domains/${domain}/contact`,
+       qs.stringify(data), {
+        headers: {
+            username,
+            token,
+        },
+    });
+    return response.data;
+  } catch (error) {
+    return formatError(error, "updateDomainContacts");
   }
-})();
+}
  
 
 

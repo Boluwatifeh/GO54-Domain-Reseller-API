@@ -23,7 +23,65 @@ const config = {
 };
 
 
-const params = { domain: "example.com" };
+// const params = { domain: "example.com" };
+
+const params = { 
+    domain: "example.com",
+    contacts: {
+    registrant: {
+      firstname: "example",
+      lastname: "testing",
+      fullname: "example testing",
+      companyname: "textmachine",
+      email: "exam@gmail.com",
+      address1: "4 office",
+      city: "Lag",
+      state: "Lagos",
+      zipcode: "110001",
+      country: "NG",
+      phonenumber: "+234.812345678",
+    },
+    admin: {
+      firstname: "example",
+      lastname: "testing",
+      fullname: "example testing",
+      companyname: "textmachine",
+      email: "exam@gmail.com",
+      address1: "4 office",
+      city: "Lag",
+      state: "Lagos",
+      zipcode: "110001",
+      country: "NG",
+      phonenumber: "+234.812345678",
+    },
+    billing: {
+      firstname: "example",
+      lastname: "testing",
+      fullname: "example testing",
+      companyname: "textmachine",
+      email: "exam@gmail.com",
+      address1: "4 office",
+      city: "Lag",
+      state: "Lagos",
+      zipcode: "110001",
+      country: "NG",
+      phonenumber: "+234.812345678",
+    },
+    tech: {
+      firstname: "example",
+      lastname: "testing",
+      fullname: "example testing",
+      companyname: "textmachine",
+      email: "exam@gmail.com",
+      address1: "4 office",
+      city: "Lag",
+      state: "Lagos",
+      zipcode: "110001",
+      country: "NG",
+      phonenumber: "+234.87546898",
+    },
+  }
+};
 
 const response = await transferSyncDomain(config, params, params.domain);
 console.log(response);
