@@ -10,7 +10,8 @@ dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 // import { getEppCode } from "../src/actions/getEppCode.js";
 // import { getRegistrarLockStatus } from "../src/actions/getRegistrarLock.js";
-import { registerDomain } from "../src/actions/registerDomain.js"; 
+// import { registerDomain } from "../src/actions/registerDomain.js"; 
+import { renewDomain } from "../src/actions/renewDomain.js";
 
 const config = {
   endpoint: process.env.BASE_URL,  
@@ -18,70 +19,17 @@ const config = {
   apiSecret: process.env.API_SECRET,
 };
 
-const whoisData = {
-  domain: "example.com",
-  regperiod: 1,
-  nameservers: {
-    ns1: "nsa.whogohost.com",
-    ns2: "nsb.whogohost.com",
-  },
-  contacts: {
-    registrant: {
-      firstname: "example",
-      lastname: "testing",
-      fullname: "example testing",
-      companyname: "textmachine",
-      email: "exam@gmail.com",
-      address1: "4 office",
-      city: "Lag",
-      state: "Lagos",
-      zipcode: "110001",
-      country: "NG",
-      phonenumber: "+234.812345678",
-    },
-    admin: {
-      firstname: "example",
-      lastname: "testing",
-      fullname: "example testing",
-      companyname: "textmachine",
-      email: "exam@gmail.com",
-      address1: "4 office",
-      city: "Lag",
-      state: "Lagos",
-      zipcode: "110001",
-      country: "NG",
-      phonenumber: "+234.812345678",
-    },
-    billing: {
-      firstname: "example",
-      lastname: "testing",
-      fullname: "example testing",
-      companyname: "textmachine",
-      email: "exam@gmail.com",
-      address1: "4 office",
-      city: "Lag",
-      state: "Lagos",
-      zipcode: "110001",
-      country: "NG",
-      phonenumber: "+234.812345678",
-    },
-    tech: {
-      firstname: "example",
-      lastname: "testing",
-      fullname: "example testing",
-      companyname: "textmachine",
-      email: "exam@gmail.com",
-      address1: "4 office",
-      city: "Lag",
-      state: "Lagos",
-      zipcode: "110001",
-      country: "NG",
-      phonenumber: "+234.87546898",
-    },
-  },
+const renewParams = {
+    domain: "example.com",
+    regperiod: "1",
+    addons: {
+        idprotection: "1",
+        dnsmanagement: "0",
+        emailforwarding: "1",
+    }
 };
-const params = { domain: "example.com" };
+// const params = { domain: "example.com" };
 
-const response = await registerDomain(config, whoisData);
+const response = await renewDomain(config, renewParams);
 console.log(response);
 

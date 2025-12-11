@@ -1,28 +1,22 @@
-import { renewDomain } from "../../index.js";
-import dotenv from "dotenv";
-dotenv.config();
+import { createAxiosClient } from "../config/axiosClient.js";
+import { generateToken } from "../utils/generateToken.js";
+import { formatError } from "../errors/handleError.js";
+import qs from "qs";
 
-const config = {
-  endpoint: process.env.BASE_URL,
-  username: process.env.EMAIL,
-  apiSecret: process.env.API_SECRET,
-};
-
-const renewParams = {
-    domain: "example.com",
-    regperiod: "1",
-    addons: {
-        idprotection: "1",
-        dnsmanagement: "0",
-        emailforwarding: "1",
-    }
-};
-
-(async () => {
+export async function renewDomain(config, renewParams) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
+  const client = createAxiosClient(endpoint);
   try {
-    const result =  await renewDomain(config, renewParams);
-    // console.log("Renew Domain Result:", result);
+    const response = await client.post(`/order/domains/renew`, 
+      qs.stringify(renewParams), {
+      headers: {
+          username,
+          token, 
+      },
+    }); 
+    return response.data;
   } catch (error) {
-    console.error("Error renewing domain:", error);
-  } 
-})();
+    return formatError(error, "renewDomain");
+  }
+}
