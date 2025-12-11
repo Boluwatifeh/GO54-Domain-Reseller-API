@@ -19,7 +19,7 @@ Provides easy methods to register, transfer, renew domains, and manage domain de
 ## Installation
 
 ```bash
-npm install go54-domain-reseller-sdk
+npm install go54-domain-reseller-api
 ```
 
 
@@ -51,7 +51,7 @@ import {
   updateDomainRegistrarLock,
   syncDomainDetails,
   transferSyncDomain,
-} from "go54-domain-reseller-sdk";
+} from "go54-domain-reseller-api";
 
 const config = {
   endpoint: process.env.BASE_URL,
