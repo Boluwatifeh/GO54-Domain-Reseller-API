@@ -14,7 +14,9 @@ dotenv.config({ path: path.resolve(__dirname, "../.env") });
 // import { renewDomain } from "../src/actions/renewDomain.js";
 // import { syncDomainDetails } from "../src/actions/syncDomainDetails.js";
 // import { transferDomain } from "../src/actions/transferDomain.js"; 
-import { transferSyncDomain } from "../src/actions/transferSyncDomain.js";
+// import { transferSyncDomain } from "../src/actions/transferSyncDomain.js";
+// import { updateDomainContacts } from "../src/actions/updateDomainContactDetails.js";
+import { updateDomainNameservers } from "../src/actions/updateDomainNameservers.js";
 
 const config = {
   endpoint: process.env.BASE_URL,  
@@ -24,65 +26,16 @@ const config = {
 
 
 // const params = { domain: "example.com" };
-
 const params = { 
     domain: "example.com",
-    contacts: {
-    registrant: {
-      firstname: "example",
-      lastname: "testing",
-      fullname: "example testing",
-      companyname: "textmachine",
-      email: "exam@gmail.com",
-      address1: "4 office",
-      city: "Lag",
-      state: "Lagos",
-      zipcode: "110001",
-      country: "NG",
-      phonenumber: "+234.812345678",
-    },
-    admin: {
-      firstname: "example",
-      lastname: "testing",
-      fullname: "example testing",
-      companyname: "textmachine",
-      email: "exam@gmail.com",
-      address1: "4 office",
-      city: "Lag",
-      state: "Lagos",
-      zipcode: "110001",
-      country: "NG",
-      phonenumber: "+234.812345678",
-    },
-    billing: {
-      firstname: "example",
-      lastname: "testing",
-      fullname: "example testing",
-      companyname: "textmachine",
-      email: "exam@gmail.com",
-      address1: "4 office",
-      city: "Lag",
-      state: "Lagos",
-      zipcode: "110001",
-      country: "NG",
-      phonenumber: "+234.812345678",
-    },
-    tech: {
-      firstname: "example",
-      lastname: "testing",
-      fullname: "example testing",
-      companyname: "textmachine",
-      email: "exam@gmail.com",
-      address1: "4 office",
-      city: "Lag",
-      state: "Lagos",
-      zipcode: "110001",
-      country: "NG",
-      phonenumber: "+234.87546898",
-    },
-  }
+    nameservers: {
+        ns1: "ns1.example.com",
+        ns2: "ns2.example.com",
+        ns3: "ns3.example.com",
+        ns4: "ns4.example.com"
+    }
 };
 
-const response = await transferSyncDomain(config, params, params.domain);
+const response = await updateDomainNameservers(config, params.nameservers, params.domain);
 console.log(response);
 

@@ -1,27 +1,24 @@
-import { updateDomainNameservers } from "../../index.js";
-import dotenv from "dotenv";
-dotenv.config();
-const config = {
-  endpoint: process.env.BASE_URL,
-  username: process.env.EMAIL,
-  apiSecret: process.env.API_SECRET,
-};
-// const domain = "example.com";
-const params = { 
-    domain: "example.com",
-    nameservers: {
-        ns1: "ns1.example.com",
-        ns2: "ns2.example.com",
-        ns3: "ns3.example.com",
-        ns4: "ns4.example.com"
-    }
-};
+import { createAxiosClient } from "../config/axiosClient.js";
+import { generateToken } from "../utils/generateToken.js";
+import { formatError } from "../errors/handleError.js";
+import qs from "qs";
 
-(async () => {
-  try {
-    const result =  await updateDomainNameservers(config, params.nameservers, params.domain);
-    console.log("Domain Nameservers Update Result:", result);
-    } catch (error) {
-    console.error("Error updating domain nameservers:", error);
+export async function updateDomainNameservers(config, nameservers, domain) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
+    const client = createAxiosClient(endpoint); 
+    try {
+    const response = await client.post(`/domains/${domain}/nameservers`,
+       qs.stringify(nameservers), {
+        headers: {
+            username,
+            token,  
+        },
+    });
+    return response.data;
   }
-})();
+  catch (error) {
+    return formatError(error, "updateDomainNameservers");
+  }
+}
+
