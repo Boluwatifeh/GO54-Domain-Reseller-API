@@ -29,12 +29,15 @@ npm install go54-domain-reseller-sdk
 
 Create a .env file in your project root:
 
+```
 BASE_URL=https://whogohost.com/host/modules/addons/DomainsReseller/api/index.php
-EMAIL=your-reseller-email@example.com
+EMAIL=janedoe@example.com
 API_SECRET=your-reseller-api-key
+```
 
 2. Import and Configure the SDK
 
+```
 import {
   registerDomain,
   transferDomain,
@@ -53,3 +56,4 @@ const config = {
   username: process.env.EMAIL,
   apiSecret: process.env.API_SECRET,
 };
+```
