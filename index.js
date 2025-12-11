@@ -1,8 +1,8 @@
-export {generateToken} from "./utils/generateToken.js";
+export {generateToken} from "./src/utils/generateToken.js";
 export {getContactDetails} from "./src/actions/getContactDetails.js";
 export {getDomainNameservers} from "./src/actions/getDomainNameservers.js";
 export {getEppCode} from "./src/actions/getEppCode.js";
-export {getRegistrarLock} from "./src/actions/getRegistrarLock.js";
+export {getRegistrarLockStatus} from "./src/actions/getRegistrarLock.js";
 export {registerDomain} from "./src/actions/registerDomain.js";
 export {renewDomain} from "./src/actions/renewDomain.js";
 export {syncDomainDetails} from "./src/actions/syncDomainDetails.js";
@@ -10,4 +10,4 @@ export {transferDomain} from "./src/actions/transferDomain.js";
 export {transferSyncDomain} from "./src/actions/transferSyncDomain.js";
 export {updateDomainContactDetails} from "./src/actions/updateDomainContactDetails.js";
 export {updateDomainNameservers} from "./src/actions/updateDomainNameservers.js";
-export {updateDomainRegistrarLock} from "./src/actions/updateDomainRegistrarLock.js";
+export {toggleRegistrarLock} from "./src/actions/updateDomainRegistrarLock.js";

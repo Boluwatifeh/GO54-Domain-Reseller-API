@@ -44,11 +44,13 @@ import {
   renewDomain,
   getDomainNameservers,
   getEppCode,
+  getRegistrarLock,
   getContactDetails,
   updateDomainContactDetails,
   updateDomainNameservers,
   updateDomainRegistrarLock,
   syncDomainDetails,
+  transferSyncDomain,
 } from "go54-domain-reseller-sdk";
 
 const config = {
