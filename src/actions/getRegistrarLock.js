@@ -1,20 +1,21 @@
-import { getRegistrarLockStatus } from "../../index.js";
-import dotenv from "dotenv";
-dotenv.config();
+import { createAxiosClient } from "../config/axiosClient.js";
+import { generateToken } from "../utils/generateToken.js";
+import { formatError } from "../errors/handleError.js";
 
-const config = {
-  endpoint: process.env.BASE_URL,
-  username: process.env.EMAIL,
-  apiSecret: process.env.API_SECRET,
-};
-const params = {
-  domain: "example.com",
-};
-(async () => {
+export async function getRegistrarLockStatus(config, domain) {
+  const { endpoint, username, apiSecret } = config;
+  const token = generateToken(username, apiSecret);
+  const client = createAxiosClient(endpoint);
   try {
-    const result =  await getRegistrarLockStatus(config, params, params.domain);
-    console.log("Registrar Lock Status Result:", result);
-    } catch (error) {
-    console.error("Error retrieving registrar lock status:", error);
+    const response = await client.get(`/domains/${domain}/lock`, {
+      headers: {
+        username,
+        token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return formatError(error, "getRegistrarLockStatus");
   }
-})();
+}

@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 // import { getEppCode } from "../src/actions/getEppCode.js";
-import { getContactDetails } from "../src/actions/getContactDetails.js";
+import { getRegistrarLockStatus } from "../src/actions/getRegistrarLock.js";
 
 const config = {
   endpoint: process.env.BASE_URL,  
@@ -19,6 +19,6 @@ const config = {
 
 const params = { domain: "example.com" };
 
-const response = await getContactDetails(config, params.domain);
+const response = await getRegistrarLockStatus(config, params.domain);
 console.log(response);
 
