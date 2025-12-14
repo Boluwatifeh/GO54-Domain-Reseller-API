@@ -1,5 +1,10 @@
 # GO54 Domain Reseller API SDK
 
+![MIT License](https://img.shields.io/badge/License-MIT-green.svg)
+![npm version](https://img.shields.io/npm/v/go54-domain-reseller-api)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+
 A JavaScript SDK for interacting with the GO54 Domain Reseller API.  
 Provides easy methods to register, transfer, renew domains, and manage domain details programmatically.
 
@@ -163,11 +168,11 @@ All errors follow a standard format:
 
 ```json
 {
-  success: false,
-  action: "registerDomain",
-  status: 500,
-  message: "Reseller does not have enough credits on his account",
-  provider: {
+  "success": false,
+  "action": "registerDomain",
+  "status": 500,
+  "message": "Reseller does not have enough credits on his account",
+  "provider": {
     "error": "Reseller does not have enough credits on his account"
   }
 }
@@ -185,7 +190,8 @@ All errors follow a standard format:
 
 ## License
 
-MIT License
+This project is licensed under the **MIT License**.  
+See the [LICENSE](./LICENSE) file for details.
 
 ## Contributing
 
