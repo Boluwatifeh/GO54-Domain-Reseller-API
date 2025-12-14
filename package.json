@@ -1,12 +1,12 @@
 {
   "name": "go54-domain-reseller-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": ["GO54", "domain", "reseller", "api", "sdk", "whogohost", "javascript"],
   "author": "Ogundeyi Boluwatife",
   "license": "MIT",
   "description": "A JavaScript SDK for GO54 Domain Reseller API",

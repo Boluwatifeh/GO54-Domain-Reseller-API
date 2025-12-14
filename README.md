@@ -21,11 +21,12 @@ Provides easy methods to register, transfer, renew domains, and manage domain de
 ```bash
 npm install go54-domain-reseller-api
 ```
+## Requirements
 
+- Node.js v18+
+- GO54 Domain Reseller API credentials
 
-## Getting started
-
-1. Setup Environment Variables
+## Configuration
 
 Create a .env file in your project root:
 
@@ -35,27 +36,162 @@ EMAIL=janedoe@example.com
 API_SECRET=your-reseller-api-key
 ```
 
-2. Import and Configure the SDK
+## Usage 
 
-```
-import {
-  registerDomain,
-  transferDomain,
-  renewDomain,
-  getDomainNameservers,
-  getEppCode,
-  getRegistrarLock,
-  getContactDetails,
-  updateDomainContactDetails,
-  updateDomainNameservers,
-  updateDomainRegistrarLock,
-  syncDomainDetails,
-  transferSyncDomain,
-} from "go54-domain-reseller-api";
+Below is an example of how to register a domain using the SDK.
+
+### Register a Domain
+
+```javascript
+import { registerDomain } from "go54-domain-reseller-api";
 
 const config = {
   endpoint: process.env.BASE_URL,
   username: process.env.EMAIL,
   apiSecret: process.env.API_SECRET,
 };
+
+const whoisData = {
+  domain: "example.com",
+  regperiod: 1,
+  nameservers: {
+    ns1: "nsa.whogohost.com",
+    ns2: "nsb.whogohost.com",
+  },
+  contacts: {
+    registrant: {
+      firstname: "example",
+      lastname: "testing",
+      fullname: "example testing",
+      companyname: "textmachine",
+      email: "exam@gmail.com",
+      address1: "4 office",
+      city: "Lag",
+      state: "Lagos",
+      zipcode: "110001",
+      country: "NG",
+      phonenumber: "+234.812345678",
+    },
+    admin: {
+      firstname: "example",
+      lastname: "testing",
+      fullname: "example testing",
+      companyname: "textmachine",
+      email: "exam@gmail.com",
+      address1: "4 office",
+      city: "Lag",
+      state: "Lagos",
+      zipcode: "110001",
+      country: "NG",
+      phonenumber: "+234.812345678",
+    },
+    billing: {
+      firstname: "example",
+      lastname: "testing",
+      fullname: "example testing",
+      companyname: "textmachine",
+      email: "exam@gmail.com",
+      address1: "4 office",
+      city: "Lag",
+      state: "Lagos",
+      zipcode: "110001",
+      country: "NG",
+      phonenumber: "+234.812345678",
+    },
+    tech: {
+      firstname: "example",
+      lastname: "testing",
+      fullname: "example testing",
+      companyname: "textmachine",
+      email: "exam@gmail.com",
+      address1: "4 office",
+      city: "Lag",
+      state: "Lagos",
+      zipcode: "110001",
+      country: "NG",
+      phonenumber: "+234.87546898",
+    },
+  },
+};
+
+(async () => {
+  try {
+    const response = await registerDomain(config, whoisData);
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+})();
 ```
+
+## API/Actions Reference
+
+---
+- `registerDomain(config, data)` – Register a new domain.
+- `transferDomain(config, data)` – Initiate a domain transfer.
+- `renewDomain(config, data)` – Renew a domain.
+- `getEppCode(config, data, domain)` – Retrieve EPP code for a domain.
+- `getContactDetails(config, data, domain)` – Get domain contact information.
+- `getDomainNameservers(config, data, domain)` – Get nameservers for a domain.
+- `getRegistrarLock(config, data, domain)` – Check registrar lock status.
+- `updateDomainContactDetails(config, data, domain)` – Update domain contacts.
+- `updateDomainNameservers(config, data, domain)` – Update domain nameservers.
+- `updateDomainRegistrarLock(config, data, domain)` – Toggle registrar lock.
+- `syncDomainDetails(config, data, domain)` – Sync domain details with the provider.
+- `transferSyncDomain(config, data, domain)` – Synchronize domain transfer.
+
+---
+
+## Error Handling
+
+All errors follow a standard format:
+
+
+### Success Response
+```json
+{
+  "success": true,
+  "action": "registerDomain",
+  "status": 200,
+  "data": {
+    ...
+  }
+}
+```
+
+### Error Response
+
+```json
+{
+  success: false,
+  action: "registerDomain",
+  status: 500,
+  message: "Reseller does not have enough credits on his account",
+  provider: {
+    "error": "Reseller does not have enough credits on his account"
+  }
+}
+```
+
+### Response Fields
+
+| Field     | Type   | Description |
+|----------|--------|-------------|
+| success  | boolean | Indicates if the request succeeded |
+| action   | string  | SDK action that was executed |
+| status   | number  | HTTP status code from the API |
+| message  | string  | Human-readable error message |
+| provider | object  | Raw response from the GO54 API |
+
+## License
+
+MIT License
+
+## Contributing
+
+Contributions are welcome!
+
+1. Fork the repository
+2. Create a feature branch
+3. Write tests if applicable
+4. Submit a pull request
