@@ -2,7 +2,6 @@
 
 ![MIT License](https://img.shields.io/badge/License-MIT-green.svg)
 ![npm version](https://img.shields.io/npm/v/go54-domain-reseller-api)
-![License](https://img.shields.io/badge/license-MIT-green)
 
 
 A JavaScript SDK for interacting with the GO54 Domain Reseller API.  
